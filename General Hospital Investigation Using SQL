@@ -36,3 +36,12 @@ FROM length_stay
 JOIN general_hospital.departments departments
 ON length_stay.department_id = departments.department_id
 GROUP BY department_name
+
+--Patient Demographics
+SELECT gender,
+	ethnicity,
+	COUNT(*) AS total
+FROM general_hospital.patients
+WHERE primary_language NOT IN ('ENGLISH')
+GROUP BY 1,2
+ORDER BY total DESC;
