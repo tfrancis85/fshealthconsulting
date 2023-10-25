@@ -23,3 +23,16 @@ USING(department_id)
 WHERE patient_inpatient_readmission_flag = 'Yes'
 GROUP BY department_name
 ORDER BY percent_readmit DESC;
+
+--Average Length of Stay By Department
+WITH length_stay AS(
+SELECT *,
+patient_discharge_datetime - patient_admission_datetime AS los
+FROM general_hospital.encounters
+)
+SELECT departments.department_name,
+AVG(los) AS avg_los
+FROM length_stay
+JOIN general_hospital.departments departments
+ON length_stay.department_id = departments.department_id
+GROUP BY department_name
