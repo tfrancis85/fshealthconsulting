@@ -1,0 +1,25 @@
+--code to determine top 10 account balances by ICD 9 Codes
+SELECT admit_icd,
+	SUM(total_account_balance) AS total_due
+FROM general_hospital.accounts
+WHERE primary_icd_procedure_cd IS NOT NULL
+GROUP BY admit_icd
+ORDER BY total_due DESC
+LIMIT 10;
+
+--Account balances per admit_icd 9 code
+SELECT admit_icd,
+	SUM(total_account_balance) OVER (PARTITION BY admit_icd) AS total_balance_per_icd
+FROM general_hospital.accounts
+WHERE admit_icd IS NOT NULL;
+
+--Amount of patients readmitted to inpatient
+SELECT department_name,
+100 * COUNT(patient_readmission_flag)/ SUM(COUNT(*)) OVER() AS percent_readmit,
+COUNT(*) AS number_of_readmits
+FROM general_hospital.encounters
+JOIN general_hospital.departments
+USING(department_id)
+WHERE patient_inpatient_readmission_flag = 'Yes'
+GROUP BY department_name
+ORDER BY percent_readmit DESC;
