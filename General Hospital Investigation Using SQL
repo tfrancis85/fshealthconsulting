@@ -73,3 +73,35 @@ FROM general_hospital.surgical_encounters
 WHERE EXTRACT(year from surgical_admission_date) = 2016
 GROUP BY 1
 ORDER BY 2 DESC;
+
+--Profit Case Count Surgical
+SELECT 
+COUNT(CASE WHEN total_profit < 0 THEN 1 END) AS cases_of_losses,
+COUNT(CASE WHEN total_profit < 50000 THEN 1 END) AS cases_of_small_profit,
+COUNT(CASE WHEN total_profit > 50000 THEN 1 END) AS cases_of_large_profit
+FROM general_hospital.surgical_encounters;
+
+--People who are surgical patients
+SELECT encounters.master_patient_id,
+	SUM(total_cost),
+	SUM(total_profit)
+FROM general_hospital.surgical_encounters encounters
+LEFT JOIN general_hospital.patients patients
+ON encounters.master_patient_id = patients.master_patient_id
+WHERE encounters.master_patient_id IN (
+		SELECT master_patient_id
+		FROM general_hospital.patients)
+GROUP BY 1;
+
+--Vitals for each patient per encounter
+SELECT encounters.master_patient_id,
+	encounters.patient_encounter_id,
+	bp_systolic,
+	bp_diastolic
+FROM general_hospital.vitals vitals
+JOIN general_hospital.encounters encounters
+USING(patient_encounter_id)
+LEFT JOIN general_hospital.patients patients
+USING(master_patient_id)
+ORDER BY 1
+;
