@@ -59,6 +59,13 @@ END AS profit_descpription
 FROM general_hospital.surgical_encounters
 ORDER BY 3;
 
+--Profit Case Count Surgical
+SELECT 
+COUNT(CASE WHEN total_profit < 0 THEN 1 END) AS cases_of_losses,
+COUNT(CASE WHEN total_profit < 50000 THEN 1 END) AS cases_of_small_profit,
+COUNT(CASE WHEN total_profit > 50000 THEN 1 END) AS cases_of_large_profit
+FROM general_hospital.surgical_encounters;
+
 --Total Profit by Month Surgical in 2016
 SELECT EXTRACT(month from surgical_admission_date) AS month_2016,
 	ROUND(SUM(total_profit)) AS total_profit_month
