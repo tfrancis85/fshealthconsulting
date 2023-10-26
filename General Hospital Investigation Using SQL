@@ -45,3 +45,24 @@ FROM general_hospital.patients
 WHERE primary_language NOT IN ('ENGLISH')
 GROUP BY 1,2
 ORDER BY total DESC;
+
+--Profit Categories for Surgical 
+
+SELECT surgeon_id,
+	diagnosis_description,
+CASE 
+	WHEN total_profit < 0 THEN 'Hospital Loss'
+	WHEN total_profit < 50000 THEN 'Small Profit'
+	WHEN total_profit > 50000 THEN 'Large Profit'
+	ELSE 'N/A'
+END AS profit_descpription
+FROM general_hospital.surgical_encounters
+ORDER BY 3;
+
+--Total Profit by Month Surgical in 2016
+SELECT EXTRACT(month from surgical_admission_date) AS month_2016,
+	ROUND(SUM(total_profit)) AS total_profit_month
+FROM general_hospital.surgical_encounters
+WHERE EXTRACT(year from surgical_admission_date) = 2016
+GROUP BY 1
+ORDER BY 2 DESC;
