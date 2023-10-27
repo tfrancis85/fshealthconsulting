@@ -1,3 +1,6 @@
+-- General Hospital is a fictionalized dataset used to practice SQL using Postgres. Dataset using ICD 9 instead of current ICD 10 codes
+
+
 --code to determine top 10 account balances by ICD 9 Codes
 SELECT admit_icd,
 	SUM(total_account_balance) AS total_due
