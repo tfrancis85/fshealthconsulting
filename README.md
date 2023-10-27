@@ -1,4 +1,7 @@
 # fshealthconsulting
 ## Portfolio of projects (clinical quality, analytics, and informatics)
 
-Hello. My name is Teena Francis. I am a registered nurse with a background in high acuity care, clinical quality, and informatics experience. This repository will store my various projects to highlight the skills that I possess. Feel free to leave feedback at **fshealthconsulting@gmail.com** if you have any questions or want to discuss consulting contracts. I have experience in startups and established businesses. I am eager to assist in achieving deliverables in a timely manner, provide value to your organization, and along the way learn new skills to become a better more well-rounded professional. 
+**First Project**
+General Hospital Investigation Using SQL
+
+Background: General Hospital is a fictional practice dataset to highlight the use of SQL to investigate and analyze the various aspects of the hospital. The analysis will not only include financial information but also relevant clinical information to determine the highest use and needs of the hospital. The tables contain the old ICD 9 codes instead of the current ICD 10 codes. 
